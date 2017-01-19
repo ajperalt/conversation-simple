@@ -47,19 +47,21 @@ app.post('/api/message', function(req, res) {
       }
     });
   }
+  
   var payload = {
     workspace_id: workspace,
     context: req.body.context || {},
     input: req.body.input || {}
   };
-
+  
   // Send the input to the conversation service
   conversation.message(payload, function(err, data) {
-    if (err) {
+    if (err) {  
       return res.status(err.code || 500).json(err);
     }
     return res.json(updateMessage(payload, data));
   });
+  
 });
 
 /**
